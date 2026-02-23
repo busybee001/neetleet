@@ -6,6 +6,7 @@
   "scripts": {
     "build": "mkdir -p dist && cp -r src/* dist/",
     "watch": "chokidar 'src/**/*' -c 'pnpm run build'",
+    "auto": "chokidar \"**/*.py\" -c \"git add . && git diff --cached --quiet || (git commit -m 'Auto solve $(date)' && git push)\"",
     "test": "jest",
     "test:unit": "jest --testPathPattern=tests/unit/",
     "test:e2e": "jest --testPathPattern=tests/e2e/",
