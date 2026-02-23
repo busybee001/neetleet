@@ -168,5 +168,34 @@ document.addEventListener("NO_NEETCODE_SOLUTION", (event) => {
 	console.log(`No NeetCode solution found for problem: ${event.detail}`);
 });
 
-// Run the script
-init();
+/**
+ * IMPORTANT:
+ * - In the browser extension, this file should run init() automatically.
+ * - In Jest/unit tests, we DON'T want side effects on import.
+ */
+const IS_JEST =
+	typeof process !== "undefined" &&
+	process.env &&
+	process.env.NODE_ENV === "test";
+
+// Run the script (only outside Jest)
+if (!IS_JEST) {
+	init();
+}
+
+// ---- Exports for Jest (CommonJS) ----
+if (typeof module !== "undefined" && module.exports) {
+	module.exports = {
+		init,
+		extractSlugFromURL,
+		appendButtonIfSolutionExists,
+		dispatchNoSolutionEvent,
+		createButton,
+		enhanceButtonHover,
+		resetButtonHover,
+		createLogoElement,
+		createTextElement,
+		addDragFunctionality,
+		handleButtonClick,
+	};
+}
